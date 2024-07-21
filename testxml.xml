@@ -1,0 +1,52 @@
+<file name='../mysite/mysite/views/comments.py'>
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.decorators import method_decorator
+from django.views.generic import View
+
+from .models import Comment, Post
+
+@method_decorator(login_required, name='dispatch')
+class CommentListView(View):
+    def get(self, request, post_id):
+        post = get_object_or_404(Post, id=post_id)
+        comments = post.comments.all()
+        return render(request, 'comments/list.html', {'comments': comments})
+
+@method_decorator(login_required, name='dispatch')
+class CommentCreateView(View):
+    def get(self, request, post_id):
+        post = get_object_or_404(Post, id=post_id)
+        comment = Comment(post=post, user=request.user)
+        return render(request, 'comments/create.html', {'comment': comment})
+
+    def post(self, request, post_id):
+        post = get_object_or_404(Post, id=post_id)
+        comment = Comment(post=post, user=request.user, content=request.POST.get('content'))
+        if comment.save():
+            return redirect('post_detail', post_id=post.id)
+        return render(request, 'comments/create.html', {'comment': comment})
+
+@method_decorator(login_required, name='dispatch')
+class CommentUpdateView(View):
+    def get(self, request, post_id, comment_id):
+        post = get_object_or_404(Post, id=post_id)
+        comment = get_object_or_404(Comment, id=comment_id, post=post)
+        return render(request, 'comments/update.html', {'comment': comment})
+
+    def post(self, request, post_id, comment_id):
+        post = get_object_or_404(Post, id=post_id)
+        comment = get_object_or_404(Comment, id=comment_id, post=post)
+        comment.content = request.POST.get('content')
+        if comment.save():
+            return redirect('post_detail', post_id=post.id)
+        return render(request, 'comments/update.html', {'comment': comment})
+
+@method_decorator(login_required, name='dispatch')
+class CommentDeleteView(View):
+    def get(self, request, post_id, comment_id):
+        post = get_object_or_404(Post, id=post_id)
+        comment = get_object_or_404(Comment, id=comment_id, post=post)
+        comment.delete()
+        return redirect('post_detail', post_id=post.id)
+</file>
