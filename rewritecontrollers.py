@@ -5,7 +5,7 @@ from processxml import ProcessXML
 from codetools import *
 
 class RewriteControllers:
-	def __init__(self,llm, inputpath, outputpath, models):
+	def __init__(self,llm, inputpath, outputpath, models, urls):
 		print(f"{color.BOLD}{color.UNDERLINE}Working on Controllers{color.END}")
 		self.llm = llm
 		self.inputpath = inputpath
@@ -17,7 +17,6 @@ class RewriteControllers:
 		#prompt += f"<models>{models}</models>"
 
 		for controller in controllers:
-			prompt = "<context> You are a software engineer working on a project to convert rubyonrails code to python using the dhango framework.  <context>"
 			sourcecontroller = f"{sourcecontrollerfolder}/{controller}"
 			targetview = f"{self.outputpath}/{controller.split('_')[0]}.py"
 
@@ -25,10 +24,12 @@ class RewriteControllers:
 			with open(sourcecontroller, "r") as file:
 				controllerfile = file.read()
 			
+			prompt = f"<models>{models}</models>"
+			prompt += f"<urls>{urls}</urls>"
 			prompt += f"<code> \
 							{controllerfile} \
 						<code>"
-		
+					
 			print(f"Rewriting {controller}")
 			sourcecontroller = f"{sourcecontrollerfolder}/{controller}"
 			prompt += f"<instructions> \
@@ -39,6 +40,11 @@ class RewriteControllers:
 						- THE DATAMODELS USED IN THIS CONTROLLER IS LOCATED IN A PARENT FOLDER SO PLEASE ADJUST THE MODEL LOCATION ACCORDINGLY \
 						- ENSURE THAT EACH RUBYONRAILS METHOD USED IN THE IN THE <CODE> </CODE> TAG IS CONVERTED TO A DJANGO EQUIVALENT CODE.  \
 						- MAKE SURE RETURN TYPES SUPPORT BOTH HTML AND JSON RESPONSES \
+						- TAKE NOTE OF THE params.require AND params.permit METHODS USED IN THE CONTROLLER. \
+						- TAKE NOTE OF THE flash[:notice] METHOD USED WHEN RENDERING CONTROLLER.  \
+						- TAKE NOTE OF THE URLS IN THE <urls> </urls> TAG WHEN GENERATING THE PYTHON METHODS AS OUTLIND IN THE urlpatterns VARIABLE.  \
+						- TAKE NOTE OF THE URLS IN THE <models> </models> TAG.  \
+	                    - DO NOT WITHOUT ANY COMMENTS OR ANY EXPLANATIONS OR ADDITIONAL TEXT. \
 						</instructions>"
 			
 			pythoncode = self.llm.completion(prompt)

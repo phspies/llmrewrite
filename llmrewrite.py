@@ -31,9 +31,9 @@ llm = CallLLM(llmmodel)
 #     data = file.read()
 #     ProcessXML(data)
 
+urls = GenerateURLS(llm, args.inputpath, args.outputpath).djangoroutes
 models = Rewritemodels(llm, args.inputpath, args.outputpath).modeldump
-RewriteControllers(llm, args.inputpath, args.outputpath, models)
+RewriteControllers(llm, args.inputpath, args.outputpath, models, urls)
 #RewriteViews(llm, args.inputpath, args.outputpath)
-#GenerateURLS(llm, args.inputpath, args.outputpath)
 
 print(f"\n\n\n{color.BOLD}{color.UNDERLINE}Done!{color.END}")

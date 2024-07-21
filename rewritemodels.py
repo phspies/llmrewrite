@@ -15,14 +15,13 @@ class Rewritemodels:
 		self.outputpath = f"{outputpath}/models.py"
 
 		sourceschema = f"{self.inputpath}/db/schema.rb"
-		print(f"\tUsing schema file: {sourceschema}")        
-		print(f"\tUsing LLM to convert schema to django model code")
+		print(f"Using schema file: {sourceschema}")        
+		print(f"Using LLM to convert schema to django model code")
 
 		with open(sourceschema, "r") as file:
 			sourceschemafile = file.read()
 
-		prompt = "<context> You are a software engineer working on a project to convert rubyonrails code to python using the dhango framework.  <context>"
-		prompt += f"<code>{sourceschemafile}</code>"
+		prompt = f"<code>{sourceschemafile}</code>"
 		prompt += f"<instructions> \
 			- REWRITE THE SPECIFIC RUBYONRAILS DATABASE SCHEMA IN THE <code> </code> TAG INTO PYTHON USING THE DJANGO FRAMEWORK WITHOUT ANY COMMENTS OR ANY EXPLANATIONS. \
 			- Use the same class for named method. \
