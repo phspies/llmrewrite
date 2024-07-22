@@ -48,6 +48,7 @@ class RewriteViews:
                                 - ENSURE THAT EACH RUBYONRAILS METHOD USED IN THE IN THE <CODE> </CODE> TAG IS CONVERTED TO A DJANGO EQUIVALENT CODE.  \
                                 - ONLY CREATE THE HTML CODE. DO NOT CREATE THE PYTHON CODE.  \
                                 - MAINTAIN THE ORIGINAL HTML CODE STRUCTURE.  \
+                                - MAINTAIN HTML TAGS CONDITIONAL FORMATTING  \
                                 </instructions>"
                     
                     pythoncode = llm.completion(prompt)
