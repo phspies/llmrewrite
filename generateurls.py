@@ -21,7 +21,7 @@ class GenerateURLS:
         prompt = f"<code>{output}<code>"
         print(f"Rewriting routes")
 
-        prompt += f"<instructions> \
+        prompt += f"Please follow this steps: \
                     - REWRITE THE SPECIFIC RUBYONRAILS RAKE ROUTES OUT IN THE <CODE> </CODE> TAG INTO PYTHON DJANGO DISPATCHER CONFIGURATION. \
                     - USE RECOMMENDED CODE SECURITY PRACTICES THAT WOULD PREVENT ALL KNOWN SECURITY CODING EXPLOITS \
                     - DON'T RETURN THE <CODE> </CODE> TAG IN THE OUTPUT.  \
@@ -29,7 +29,8 @@ class GenerateURLS:
                     - ENSURE THAT EACH RUBYONRAILS METHOD USED IN THE IN THE <CODE> </CODE> TAG IS CONVERTED TO A DJANGO EQUIVALENT CODE.  \
                     - DO NOT INCLUDE A ```PYTHON WRAPPER IN THE CODE \
                     - DO NOT WITHOUT ANY COMMENTS OR ANY EXPLANATIONS OR ADDITIONAL TEXT. \
-                    </instructions>"
+                    - EXCLUDE ALL RUBYONRAILS CODE THAT IS NOT NEEDED FOR THE DJANGO DISPATCHER CONFIGURATION.  \
+                    - EXCLUDE ALL DEVISE CODE THAT IS NOT NEEDED FOR THE DJANGO DISPATCHER CONFIGURATION. "
         
         pythoncode = llm.completion(prompt)
         llm.completion("/clear")        

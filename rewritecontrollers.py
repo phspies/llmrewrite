@@ -14,7 +14,6 @@ class RewriteControllers:
 
 		sourcecontrollerfolder = f"{self.inputpath}/app/controllers"
 		controllers = [f for f in os.listdir(sourcecontrollerfolder) if os.path.isfile(f"{sourcecontrollerfolder}/{f}")]
-		#prompt += f"<models>{models}</models>"
 
 		for controller in controllers:
 			sourcecontroller = f"{sourcecontrollerfolder}/{controller}"
@@ -26,13 +25,11 @@ class RewriteControllers:
 			
 			prompt = f"<models>{models}</models>"
 			prompt += f"<urls>{urls}</urls>"
-			prompt += f"<code> \
-							{controllerfile} \
-						<code>"
+			prompt += f"<code>{controllerfile}<code>"
 					
 			print(f"Rewriting {controller}")
 			sourcecontroller = f"{sourcecontrollerfolder}/{controller}"
-			prompt += f"<instructions> \
+			prompt += "Please follow the steps: \
 						- REWRITE THE SPECIFIC RUBYONRAILS CODE IN THE <code> </code> TAG INTO PYTHON USING THE DJANGO FRAMEWORK WITHOUT ANY COMMENTS OR ANY EXPLANATIONS OR ADDITIONAL TEXT. \
 						- USE RECOMMENDED CODE SECURITY PRACTICES THAT WOULD PREVENT ALL KNOWN SECURITY CODING EXPLOITS \
 						- DO NOT INCLUDE A ```PYTHON WRAPPER IN THE CODE \
@@ -43,8 +40,7 @@ class RewriteControllers:
 						- TAKE NOTE OF THE params.require AND params.permit METHODS USED IN THE CONTROLLER. \
 						- TAKE NOTE OF THE flash[:notice] METHOD USED WHEN RENDERING CONTROLLER.  \
 						- TAKE NOTE OF THE URLS IN THE <urls> </urls> TAG WHEN GENERATING THE PYTHON METHODS AS OUTLIND IN THE urlpatterns VARIABLE.  \
-						- TAKE NOTE OF THE URLS IN THE <models> </models> TAG.  \
-						</instructions>"
+						- TAKE NOTE OF THE URLS IN THE <models> </models> TAG."
 			
 			pythoncode = self.llm.completion(prompt)
 			self.llm.completion("/clear")

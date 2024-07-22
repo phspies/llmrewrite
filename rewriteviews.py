@@ -27,19 +27,17 @@ class RewriteViews:
             for file in os.listdir(currentsourcefolder):
                 if ".html" in file:
                     targetfile = file.split(".")[0]
-                    outputpath = f"{viewspath}/{folder}/{targetfile}.html"
+                    outputpath = f"{currenttargetfolder}/{targetfile}.html"
                     sourcefile = f"{currentsourcefolder}/{file}"
                     print(f"Reading {sourcefile}")
                     with open(sourcefile, "r") as file:
                         viewfilecontent = file.read()
                     
-                    prompt = f"<code> \
-                                    {viewfilecontent} \
-                                <code>"
+                    prompt = f"<code>{viewfilecontent}<code>"
                 
                     print(f"Rewriting {sourcefile}")
 
-                    prompt += f"<instructions> \
+                    prompt += f"Please follow this steps: \
                                 - REWRITE THE SPECIFIC RUBYONRAILS VIEW CODE IN THE <code> </code> TAG INTO PYTHON USING THE DJANGO FRAMEWORK WITHOUT ANY COMMENTS OR ANY EXPLANATIONS OR ADDITIONAL TEXT. \
                                 - USE RECOMMENDED CODE SECURITY PRACTICES THAT WOULD PREVENT ALL KNOWN SECURITY CODING EXPLOITS \
                                 - DO NOT INCLUDE A ```PYTHON WRAPPER IN THE CODE \
@@ -48,8 +46,8 @@ class RewriteViews:
                                 - ENSURE THAT EACH RUBYONRAILS METHOD USED IN THE IN THE <CODE> </CODE> TAG IS CONVERTED TO A DJANGO EQUIVALENT CODE.  \
                                 - ONLY CREATE THE HTML CODE. DO NOT CREATE THE PYTHON CODE.  \
                                 - MAINTAIN THE ORIGINAL HTML CODE STRUCTURE.  \
-                                - MAINTAIN HTML TAGS CONDITIONAL FORMATTING  \
-                                </instructions>"
+                                - MAINTAIN HTML TAGS CONDITIONAL FORMATTING "
+                            
                     
                     pythoncode = llm.completion(prompt)
                     llm.completion("/clear")
