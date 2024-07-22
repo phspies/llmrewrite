@@ -34,6 +34,6 @@ llm = CallLLM(llmmodel)
 urls = GenerateURLS(llm, args.inputpath, args.outputpath).djangoroutes
 models = Rewritemodels(llm, args.inputpath, args.outputpath).modeldump
 RewriteControllers(llm, args.inputpath, args.outputpath, models, urls)
-#RewriteViews(llm, args.inputpath, args.outputpath)
+RewriteViews(llm, args.inputpath, args.outputpath)
 
 print(f"\n\n\n{color.BOLD}{color.UNDERLINE}Done!{color.END}")

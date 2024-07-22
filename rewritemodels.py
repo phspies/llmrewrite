@@ -23,13 +23,14 @@ class Rewritemodels:
 
 		prompt = f"<code>{sourceschemafile}</code>"
 		prompt += f"<instructions> \
-			- REWRITE THE SPECIFIC RUBYONRAILS DATABASE SCHEMA IN THE <code> </code> TAG INTO PYTHON USING THE DJANGO FRAMEWORK WITHOUT ANY COMMENTS OR ANY EXPLANATIONS. \
+			- REWRITE THE SPECIFIC RUBYONRAILS DATABASE SCHEMA IN THE <code> </code> TAG INTO PYTHON USING THE DJANGO FRAMEWORK. \
 			- Use the same class for named method. \
 			- Use recommended code security practices that would prevent major security coding exploits \
 			- Only output the python code asked for. \
 			- Provide only the updated code, without any explanations or additional text. \
 			- If no change is needed, do not make any changes. \
 			- Do not include a ```python wrapper in the code \
+			- CREATE OUTPUT WITHOUT ANY COMMENTS OR ANY EXPLANATIONS OR ADDITIONAL TEXT. \
 		</instructions>"
 
 
@@ -39,5 +40,5 @@ class Rewritemodels:
 		codeobject.savecode()
 		self.modeldump = targetmodelcode
 
-		print(f"\tWriting new view file to {self.outputpath}")        
+		print(f"Writing new view file to {self.outputpath}")        
 

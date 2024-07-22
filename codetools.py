@@ -19,3 +19,4 @@ class CodeTools:
         f = open(self.outputfilename, "w")
         f.write(self.outputcode)
         f.close()
+        print(f"Writing new file to {self.outputfilename}")        
