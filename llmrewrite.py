@@ -8,10 +8,10 @@ import argparse
 import os
 from litellm import completion
 
-#llmmodel = "bedrock/anthropic.claude-3-sonnet-20240229-v1:0"
+llmmodel = "bedrock/anthropic.claude-3-sonnet-20240229-v1:0"
 #llmmodel ="bedrock/anthropic.claude-v2"
 #llmmodel="claude-3-5-sonnet-20240620"
-llmmodel="claude-3-opus-20240229"
+#llmmodel="claude-3-opus-20240229"
 
 for evar in 'AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_REGION_NAME'.split(','):
     if evar not in os.environ:
