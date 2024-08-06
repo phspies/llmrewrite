@@ -44,7 +44,7 @@ class RewriteControllers:
 			print(f"Refactoring {controller}")
 			
 			self.llm.completion("/clear")
-			pythoncode = self.llm.completion(f"Refactor the following part of my code WITHOUT ANY COMMENTS OR ANY EXPLANATIONS OR ADDITIONAL TEXT.:  \n\n {pythoncode}")
+			pythoncode = self.llm.completion(f"Refactor the following code WITHOUT ANY COMMENTS OR ANY EXPLANATIONS OR ADDITIONAL TEXT.:  \n\n {pythoncode}")
 			
 			codeobject = CodeTools(controller, targetview, controllerfile, pythoncode)
 			codeobject.printcode()

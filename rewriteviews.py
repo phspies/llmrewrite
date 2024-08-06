@@ -45,8 +45,7 @@ class RewriteViews:
                                 - THE DATAMODELS USED IN THIS CONTROLLER IS LOCATED IN A PARENT FOLDER SO PLEASE ADJUST THE MODEL LOCATION ACCORDINGLY \
                                 - ENSURE THAT EACH RUBYONRAILS METHOD USED IN THE IN THE <CODE> </CODE> TAG IS CONVERTED TO A DJANGO EQUIVALENT CODE.  \
                                 - ONLY CREATE THE HTML CODE. DO NOT CREATE THE PYTHON CODE.  \
-                                - MAINTAIN THE ORIGINAL HTML CODE STRUCTURE.  \
-                                - MAINTAIN HTML TAGS CONDITIONAL FORMATTING "
+                                - MAINTAIN THE ORIGINAL HTML CODE STRUCTURE. "
                             
                     
                     pythoncode = llm.completion(prompt)
